@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .pull-left {
+            float: left;
+        }
+        .text-white {
+            color: #fff;
+        }
+        .infinite {
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+        }
+        .barrageContainer {
+            position: fixed;
+            width: 100%;
+            left: 100%;
+        }
+        .barrageWrap {
+            padding: 1px 10px 1px 1px;
+            background-color: #fd5849;
+            border-radius: 10px;
+            height: 22px;
+            white-space: nowrap;
+            display: table;
+        }
+        .barrageWrap .barragepic {
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            margin-right: 4px;
+        }
+        .barrage {
+            -webkit-animation-name: barrage;
+            animation-name: barrage;
+            -weblit-animation-duration: 20s;
+            animation-duration: 20s;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        @-webkit-keyframes barrage {
+            from {
+                transform:translate3d(0,0,0);
+            }
+
+            to {
+                transform:translate3d(-100%,0,0);
+            }
+        }
+        @keyframes barrage {
+            from {
+                transform:translate3d(0,0,0);
+            }
+
+            to {
+                transform:translate3d(-100%,0,0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        left: 0, //区域的左边边界位置，相对于父div
+
+        top: 0 , //区域的上边边界位置，相对于父div
+
+        height: 360, //区域的高度 width: 640, //区域的宽度
+
+        zindex :100, //div的css样式zindex
+
+        speed:5000, //弹幕速度，飞过区域的毫秒数
+
+        sumtime:900 , //弹幕运行总时间
+
+        danmuss:{}, //danmuss对象，运行时的弹幕内容
+
+        default_font_color:"#FFFFFF", //弹幕默认字体颜色
+
+        font_size_small:24, //小号弹幕的字体大小,注意此属性值只能是整数
+
+        font_size_big:28, //大号弹幕的字体大小
+
+        opacity:"0.7", //弹幕默认透明度
+    </div>
+
+    <div>
+        <div class="barrageContainer  barrage infinite" style="bottom:5%;-webkit-animation-delay:1s;animation-delay:1s;">
+            <div class="barrage infinite barrageWrap clearfix" style="-webkit-animation-delay:1s;animation-delay:1s;">
+                <img src="img/user.jpg" class=" barragepic pull-left">
+                <div class="pull-left text-white ">PHP是最好的编程语言</div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
