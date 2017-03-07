@@ -2,39 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>barrage</title>
     <style>
-        *{
-            padding: 0;
-            margin: 0;
-        }
-        body{
-            background: black;
-        }
         .content{
-            color: #fff;
+            color: #000;
             padding: 20px;
         }
-        .text-white {
-            color: #fff;
+        .barrage-container{
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            border: 1px dashed deepskyblue;
         }
-        .infinite {
-            -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
-        }
-        .barrage-container {
-            position: fixed;
+        .barrage-item {
+            position: absolute;
             width: 100%;
-        }
-        .barrage-container.barrage {
             left: 100%;
-        }
-        .barrage-container.barrage-fix-container {
-            top:50%;
-            text-align: center;
-        }
-        .barrage-container.barrage{
-            bottom: 10%;
         }
         .barrage-wrap {
             padding: 3px 12px;
@@ -43,9 +26,7 @@
             height: 22px;
             white-space: nowrap;
             display: inline-block;
-        }
-        .barrage-fix-container .barrage-wrap{
-            display: inline-block;
+            color: #000;
         }
         .barrage {
             -webkit-animation-name: barrage;
@@ -54,16 +35,10 @@
             animation-duration: 5s;
             -webkit-animation-timing-function: linear;
             animation-timing-function: linear;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
         }
-        .barrage-fix{
-            opacity: 0;
-            -webkit-animation-name: barrage-fix;
-            animation-name: barrage-fix;
-            -weblit-animation-duration: 5s;
-            animation-duration: 5s;
-            -webkit-animation-timing-function: linear;
-            animation-timing-function: linear;
-        }
+
         @-webkit-keyframes barrage {
             from {
                 transform:translateX(0);
@@ -99,52 +74,44 @@
                 -moz-transform:translateX(-100%);
             }
         }
-
-        @-webkit-keyframes barrage-fix {
-            0%,49% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0;
-            }
-        }
-        @keyframes barrage-fix {
-            0%,49% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0;
-            }
-        }
     </style>
+    <script src="js_jquery-1.11.1.min.js"></script>
 </head>
 <body>
     <div class="content">
         <p>
-            弹幕demo1形式:固定屏幕中间,实现方式 css3,from opacity 0,to opacity 1;
-        </p>
-        <p>
-            弹幕demo2形式:从左向右滚动,实现方式 css3,from transform:translateX(0),to transform:translateX(-100%);
+            弹幕demo形式:从左向右滚动,实现方式 css3,from transform:translateX(0),to transform:translateX(-100%);
         </p>
         <p>
             兼容范围:IE10+(keyframes ie9不支持),Firefox 5+,Chrome 4+,Safari 4+,Opera 12.1+
         </p>
     </div>
 
-    <div>
-        <div class="barrage-container barrage-fix-container">
-            <div class="infinite barrage-fix barrage-wrap">
-                <div class="text-white">demo1:JS是最好的编程语言</div>
-            </div>
-        </div>
+    <div class="barrage-container"></div>
+    <script>
+        (function () {
+            var opt = {
+                el: '.barrage-container',
+                content: ['弹幕demo形式', '从左向右滚动', 'from transform:translateX(0)','to transform:translateX(-100%)','兼容范围:','IE10+(keyframes ie9不支持),Firefox 5+,Chrome 4+,Safari 4+,Opera 12.1+','end']
+            };
 
-        <div class="barrage-container barrage infinite">
-            <div class="barrage infinite barrage-wrap">
-                <div class="text-white">demo2:PHP是最好的编程语言</div>
-            </div>
-        </div>
-    </div>
-</body>ß
+            showBarrage(opt);
+            function showBarrage(opt){
+                var ele=$(opt.el);
+                for (var i=0;i<opt.content.length; i++){
+                    (function (i) {
+                        setTimeout(function () {
+                            var top=Math.floor(Math.random() * ele.height());
+                            top=top > (ele.height()-22) ? (ele.height()-22) : top;
+                            var strHtml='<div class="barrage-item barrage" style="top:'+top+'px"><div class="barrage-wrap barrage">'+opt.content[i]+'</div></div>';
+                            ele.append(strHtml);
+                        },i*2000);
+                    })(i);
+                }
+
+
+            }
+        })();
+    </script>
+</body>
 </html>
